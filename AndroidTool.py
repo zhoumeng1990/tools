@@ -12,15 +12,15 @@ def readInfo():
     # 使用minidom解析器打开 XML 文档
     DOMTree = XmlDocument.parse(dir_path + '/' + app_name + '/AndroidManifest.xml')
     manifestNode = DOMTree.getElementsByTagName('manifest')[0]
-    print 'packageName: '+manifestNode.getAttribute('package')
+    print 'packageName: ' + manifestNode.getAttribute('package')
     collection = DOMTree.documentElement
     applicationNode = collection.getElementsByTagName("application")[0]
     if applicationNode.hasAttribute('android:label'):
-        print 'appName: '+applicationNode.getAttribute("android:label")
+        print 'appName: ' + applicationNode.getAttribute("android:label")
 
-    metaDatas = applicationNode.getElementsByTagName('meta-data')
+    meta_datas = applicationNode.getElementsByTagName('meta-data')
 
-    for metaData in metaDatas:
+    for metaData in meta_datas:
         if metaData.getAttribute('android:name') == 'com.openinstall.APP_KEY':
             print 'openInstall: ' + metaData.getAttribute('android:value')
         elif metaData.getAttribute('android:name') == 'WX_APP_KEY':
@@ -43,5 +43,3 @@ if __name__ == '__main__':
             os.system('cd ' + dir_path)
             os.system(decode_cmd)
             readInfo()
-
-            pass

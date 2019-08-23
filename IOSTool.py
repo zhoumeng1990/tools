@@ -6,9 +6,8 @@ import re
 import os
 
 dir_path = os.path.abspath('.') + '/'
-ipa_path = dir_path + '688.ipa'
 
-def analyze_ipa_with_plistlib(ipa_path):
+def analyze_ipa_with_biplist(ipa_path):
     # 先解压
     ipa_file = zipfile.ZipFile(ipa_path)
     # 拿到plist文件
@@ -21,6 +20,7 @@ def analyze_ipa_with_plistlib(ipa_path):
     # 读取字典
     print_ipa_info(plist_root)
 
+
 def find_plist_path(zip_file):
     name_list = zip_file.namelist()
     pattern = re.compile(r'Payload/[^/]*.app/Info.plist')
@@ -28,6 +28,7 @@ def find_plist_path(zip_file):
         m = pattern.match(path)
         if m is not None:
             return m.group()
+
 
 def print_ipa_info(plist_root):
     reload(sys)
@@ -38,5 +39,11 @@ def print_ipa_info(plist_root):
     print ('极光key: %s' % plist_root['jpush_appkey'])
     print ('微信key: %s' % plist_root['weixinAppKey'])
 
+
 if __name__ == '__main__':
-    analyze_ipa_with_plistlib(ipa_path)
+    files = os.listdir(dir_path)
+    for file in files:
+        if os.path.splitext(file)[-1][1:] == 'ipa':
+            app_name = os.path.splitext(file)[0]
+            ipaPath = dir_path + app_name + '.ipa'
+            analyze_ipa_with_biplist(ipaPath)

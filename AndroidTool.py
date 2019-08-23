@@ -5,7 +5,6 @@ import shutil
 import xml.dom.minidom as XmlDocument
 
 dir_path = os.path.abspath('.') + '/'
-manifest_path = dir_path + '/app/AndroidManifest.xml'  # AndroidManifest路径
 app_name = ''
 
 def readInfo():
@@ -28,6 +27,8 @@ def readInfo():
         elif metaData.getAttribute('android:name') == 'JPUSH_APPKEY':
             print 'jpushKey: ' + metaData.getAttribute('android:value')
 
+    if os.path.exists(dir_path + app_name):
+        shutil.rmtree(dir_path + app_name)
     pass
 
 if __name__ == '__main__':

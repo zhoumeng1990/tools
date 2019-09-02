@@ -34,10 +34,18 @@ def print_ipa_info(plist_root):
     reload(sys)
     sys.setdefaultencoding("utf-8")
     # print ('文件名: %s' % plist_root['CFBundleDisplayName'])
-    print ('文件名: %s' % plist_root['CFBundleDisplayName'])
-    print ('包名: %s' % plist_root['CFBundleIdentifier'])
-    print ('极光key: %s' % plist_root['jpush_appkey'])
-    print ('微信key: %s' % plist_root['weixinAppKey'])
+    if 'ChannelID' in plist_root:
+        print (u'渠道号: %s' % plist_root['ChannelID'])
+    if 'CFBundleIdentifier' in plist_root:
+        print (u'包名: %s' % plist_root['CFBundleIdentifier'])
+    if 'com.openinstall.APP_KEY' in plist_root:
+        print (u'openInstall: %s' % plist_root['com.openinstall.APP_KEY'])
+    if 'CFBundleDisplayName' in plist_root:
+        print (u'文件名: %s' % plist_root['CFBundleDisplayName'])
+    if 'jpush_appkey' in plist_root:
+        print (u'极光key: %s' % plist_root['jpush_appkey'])
+    if 'weixinAppKey' in plist_root:
+        print (u'微信key: %s' % plist_root['weixinAppKey'])
 
 
 if __name__ == '__main__':
